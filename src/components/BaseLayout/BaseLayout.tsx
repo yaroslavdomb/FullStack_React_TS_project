@@ -1,8 +1,8 @@
-import Header from './Header';
-import NavBar from './NavBar';
-import Footer from './Footer.tsx';
-import Sidebar from './SideBar';
-import SearchSection from './SearchSection';
+import Header from '../Header/index.ts';
+import NavBar from '../NavBar/index.ts';
+import Footer from '../Footer/Footer.tsx';
+import Sidebar from '../SideBar/index.ts';
+import SearchSection from '../SearchSection/index.ts';
 
 function BaseLayout({ children }: { children: React.ReactNode }) {
   return (

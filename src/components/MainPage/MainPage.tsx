@@ -1,8 +1,8 @@
-// import { useState, useEffect } from 'react';
-// import '.MainPage.css';
+import { useState, useEffect } from 'react';
+//import '.MainPage.css';
 
 function MainPage() {
-  // const [books, setBooks] = useState([]);
+  //const [books, setBooks] = useState([]);
 
   return (
     <div className="flex-1 flex gap-3.5 border-4 border-amber-500 rounded-3xl p-5">
