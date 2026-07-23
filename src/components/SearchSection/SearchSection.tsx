@@ -4,7 +4,7 @@ import Search from '../Search/Search';
 import SearchButton from '../SearchButton/SearchButton';
 
 function SearchSection() {
-  const [searchCategory, setSearchCategory] = useState<string>('Author');
+  const [searchCategory, setSearchCategory] = useState<string>('');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const handleSearch = () => {
@@ -13,10 +13,20 @@ function SearchSection() {
   };
 
   return (
-    <div id="SearchSection" className="flex flex-col gap-8">
-      <DropDown value={searchCategory} onChange={setSearchCategory} />
-      <Search value={searchQuery} onChange={setSearchQuery} />
-      <SearchButton onClick={handleSearch}>Search</SearchButton>
+    <div className="flex flex-col gap-8">
+      <DropDown
+        value={searchCategory}
+        onChange={(newCategory) => {
+          setSearchCategory(newCategory);
+          setSearchQuery('');
+        }}
+      />
+      {searchCategory && (
+        <Search value={searchQuery} onChange={setSearchQuery} />
+      )}
+      {searchCategory && searchQuery.trim() && (
+        <SearchButton onClick={handleSearch}>Search</SearchButton>
+      )}
     </div>
   );
 }

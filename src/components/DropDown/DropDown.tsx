@@ -22,7 +22,7 @@ function DropDown({ value, onChange }: DropDownProps) {
       <Dropdown
         renderTrigger={() => (
           <button className="bg-blue-500 text-white font-bold text-xl px-4 py-2 rounded-lg hover:bg-blue-700">
-            {value || 'Select by ...'}
+            {value || 'Categories'}
           </button>
         )}
       >
