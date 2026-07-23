@@ -20,28 +20,30 @@ function DropDown({ value, onChange }: DropDownProps) {
         Search by:
       </Label>
       <Dropdown
-        id="search-category-dropdown"
-        label={value || 'Select by ...'}
-        className=" bg-blue-500 hover:bg-blue-700 hover:text-white font-bold text-xl"
+        renderTrigger={() => (
+          <button className="bg-blue-500 text-white font-bold text-xl px-4 py-2 rounded-lg hover:bg-blue-700">
+            {value || 'Select by ...'}
+          </button>
+        )}
       >
         <DropdownItem
           icon={LuBaby}
           onClick={() => onChange('Author')}
-          className="hover:bg-blue-700 hover:text-white font-bold text-xl"
+          className="hover:bg-blue-700! hover:text-white font-bold text-xl"
         >
           Author
         </DropdownItem>
         <DropdownItem
           icon={LuBookText}
           onClick={() => onChange('Book Name')}
-          className="hover:bg-blue-700 hover:text-white font-bold text-xl"
+          className="hover:bg-blue-700! hover:text-white font-bold text-xl"
         >
           Book Name
         </DropdownItem>
         <DropdownItem
           icon={LuBookOpenText}
           onClick={() => onChange('Description')}
-          className="hover:bg-blue-700 hover:text-white font-bold text-xl"
+          className="hover:bg-blue-700! hover:text-white font-bold text-xl"
         >
           Description
         </DropdownItem>
