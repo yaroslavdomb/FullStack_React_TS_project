@@ -10,7 +10,7 @@ function BaseLayout({ children }: { children: React.ReactNode }) {
       <Header version={2}>
         <NavBar />
       </Header>
-      <div className="flex flex-row gap-3.5">
+      <div className="flex flex-col sm:flex-row gap-3.5">
         <Sidebar>
           <SearchSection />
         </Sidebar>
