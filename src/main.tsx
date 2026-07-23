@@ -6,8 +6,10 @@ import MainPage from './components/MainPage/MainPage.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BaseLayout>
-      <MainPage />
-    </BaseLayout>
+    <>
+      <BaseLayout>
+        <MainPage />
+      </BaseLayout>
+    </>
   </StrictMode>
 );

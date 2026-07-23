@@ -3,6 +3,7 @@ import NavBar from '../NavBar/index.ts';
 import Footer from '../Footer/Footer.tsx';
 import Sidebar from '../SideBar/index.ts';
 import SearchSection from '../SearchSection/index.ts';
+import FilterSection from '../FilterSection/FilterSection.tsx';
 
 function BaseLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -13,6 +14,7 @@ function BaseLayout({ children }: { children: React.ReactNode }) {
       <div className="flex flex-col sm:flex-row gap-3.5">
         <Sidebar>
           <SearchSection />
+          <FilterSection />
         </Sidebar>
         {children}
       </div>
