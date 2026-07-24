@@ -4,20 +4,22 @@
 
 import { Dropdown, DropdownItem, Label } from 'flowbite-react';
 import { LuBaby, LuBookOpenText, LuBookText } from 'react-icons/lu';
+import { TbArrowBigDownLines } from 'react-icons/tb';
 
 interface DropDownProps {
+  title: string;
   value: string;
   onChange: (category: string) => void;
 }
 
-function DropDown({ value, onChange }: DropDownProps) {
+function DropDown({ title, value, onChange }: DropDownProps) {
   return (
     <div className="font-bold text-4xl">
       <Label
         htmlFor="search-category-dropdown"
         className="mb-2 block font-bold text-2xl"
       >
-        Search by:
+        {title} by:
       </Label>
       <Dropdown
         renderTrigger={() => (

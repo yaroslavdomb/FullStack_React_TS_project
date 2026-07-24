@@ -15,7 +15,7 @@ function Search({ value, onChange }: SearchProps) {
           <Label
             htmlFor="search-line"
             color="gray"
-            className="font-bold text-2xl"
+            className="font-bold! text-2xl!"
           >
             Search for:
           </Label>
@@ -24,10 +24,9 @@ function Search({ value, onChange }: SearchProps) {
           id="search-line"
           placeholder="Search line"
           required
-          color="gray"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="font-bold text-2xl"
+          className="text-2xl! italic! text-gray-300!"
         />
       </div>
     </div>

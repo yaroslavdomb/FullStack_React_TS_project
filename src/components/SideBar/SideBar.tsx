@@ -1,7 +1,24 @@
-function Sidebar({ children }: { children: React.ReactNode }) {
+import Action from '../Action/Action';
+
+function Sidebar() {
+  const handleServerSearch = (category: string, query: string) => {
+    console.log('Axios call to db', category, query);
+    //TODO : server calls
+  };
+
+  const handlePageFilter = (category: string, query: string) => {
+    console.log('Filter data on current page', category, query);
+    //TODO : local filtering
+  };
+
   return (
-    <aside className="border-4 border-amber-500 rounded-3xl pt-4 pb-4 pl-3 pr-3 min-w-55">
-      {children}
+    <aside className="flex flex-col gap-4 border-4 border-amber-500 rounded-3xl pt-4 pb-4 pl-3 pr-3 min-w-55">
+      <Action
+        title="Search"
+        buttonLbl="Search"
+        onButtonClick={handleServerSearch}
+      />
+      <Action title="Filter" buttonLbl="" onInputChange={handlePageFilter} />
     </aside>
   );
 }
