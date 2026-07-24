@@ -27,10 +27,10 @@ function BookCard() {
         </button>
         <button
           onClick={editBook}
-          className="flex flex-row justify-start items-start cursor-pointer hover:scale-200"
+          className="flex flex-row items-center cursor-pointer hover:scale-200 gap-0.5"
         >
           <GiFeather />
-          Edit
+          <span className="-mt-0.5 leading-none">Edit</span>
         </button>
         <button onClick={deleteBook} className="cursor-pointer hover:scale-200">
           <RiDeleteBinLine />
