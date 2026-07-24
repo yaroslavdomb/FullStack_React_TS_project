@@ -1,14 +1,14 @@
 import { Button } from 'flowbite-react';
 import { IoSearch } from 'react-icons/io5';
 
-interface searchButtonProps {
+interface actionButtonProps {
   onClick: () => void;
   children: React.ReactNode;
 }
 
-function SearchButton({ onClick, children }: searchButtonProps) {
+function ActionButton({ onClick, children }: actionButtonProps) {
   return (
-    <div id="SearchButton" className="flex flex-row ">
+    <div className="flex flex-row ">
       <Button
         onClick={onClick}
         className="bg-blue-500 hover:bg-blue-700 text-2xl"
@@ -20,4 +20,4 @@ function SearchButton({ onClick, children }: searchButtonProps) {
   );
 }
 
-export default SearchButton;
+export default ActionButton;

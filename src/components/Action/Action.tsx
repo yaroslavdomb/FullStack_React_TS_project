@@ -42,13 +42,8 @@ function Action({
   };
 
   return (
-    <div
-      id="action-id"
-      className="flex flex-col gap-8 border-4 border-emerald-500 rounded-3xl p-3 "
-    >
-      <h3 id="action-id-title" className="text-lg font-bold">
-        {title}
-      </h3>
+    <div className="flex flex-col gap-8 border-4 border-emerald-500 rounded-3xl p-3 ">
+      <h3 className="text-center text-lg font-bold">-- {title} --</h3>
       <DropDown
         value={category}
         onChange={handleCategoryChange}

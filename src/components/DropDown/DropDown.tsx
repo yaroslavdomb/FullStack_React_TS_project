@@ -5,6 +5,7 @@
 import { Dropdown, DropdownItem, Label } from 'flowbite-react';
 import { LuBaby, LuBookOpenText, LuBookText } from 'react-icons/lu';
 import { TbArrowBigDownLines } from 'react-icons/tb';
+import { Button } from 'flowbite-react';
 
 interface DropDownProps {
   title: string;
@@ -23,9 +24,12 @@ function DropDown({ title, value, onChange }: DropDownProps) {
       </Label>
       <Dropdown
         renderTrigger={() => (
-          <button className="bg-blue-500 text-white font-bold text-xl px-4 py-2 rounded-lg hover:bg-blue-700">
-            {value || 'Categories'}
-          </button>
+          <Button className="bg-blue-500 hover:bg-blue-700 text-2xl">
+            <span className="flex items-center">
+              {value || 'Categories'}
+              (<TbArrowBigDownLines />)
+            </span>
+          </Button>
         )}
       >
         <DropdownItem

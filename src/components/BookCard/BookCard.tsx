@@ -12,7 +12,7 @@ function BookCard() {
   const [selectedBook, setSelectedBook] = useState<boolean>(false);
 
   return (
-    <div className="flex flex-col justify-center items-center w-72 h-72 md:w-96 md:h-96 border-4 border-cyan-500 rounded-3xl p-5 gap-2">
+    <div className="flex flex-col justify-center items-center w-72 h-72 min-[800px]:w-96 min-[800px]:h-96 border-4 border-cyan-500 rounded-3xl p-5 gap-2">
       <img
         className="w-60 h-60 md:w-80 md:h-80 border-2 border-emerald-500 rounded-3xl p-5"
         alt="No book cover found"
