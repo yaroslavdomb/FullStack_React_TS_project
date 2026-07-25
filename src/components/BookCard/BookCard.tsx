@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Button, Tooltip } from 'flowbite-react';
+import { Tooltip } from 'flowbite-react';
 
-import { BsSuitHeart } from 'react-icons/bs';
-import { BsSuitHeartFill } from 'react-icons/bs';
+import { BsSuitHeart, BsSuitHeartFill } from 'react-icons/bs';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { GiFeather } from 'react-icons/gi';
 import { LuBaby } from 'react-icons/lu';
+
+import EditAuthModal from '../EditAuthModal/EditAuthModal';
 
 function deleteBook() {}
 
@@ -13,6 +14,8 @@ function editBook() {}
 
 function BookCard() {
   const [selectedBook, setSelectedBook] = useState<boolean>(false);
+  const [openEditAuthModal, setOpenEditAuthModal] = useState<boolean>(false);
+  const [authorName, setAuthorName] = useState<string>('qwerty');
 
   return (
     <div
@@ -27,7 +30,7 @@ function BookCard() {
         alt="No book cover found"
         src="<URL of book cover>"
       />
-      <div className="flex flex-row justify-start items-start border-2 border-fuchsia-500 rounded-3xl p-5 gap-3.5 hover:gap-12">
+      <div className="flex flex-row justify-center items-center border-2 border-fuchsia-500 rounded-3xl p-3 gap-2 hover:gap-8">
         <Tooltip
           content={selectedBook ? 'Dislike this book' : 'Like this book'}
           className="-translate-y-2"
@@ -40,8 +43,11 @@ function BookCard() {
           </button>
         </Tooltip>
 
-        <Tooltip content="Author name: XXX" className="-translate-y-2">
-          <LuBaby className="hover:scale-200 cursor-pointer" />
+        <Tooltip content={`Author: ${authorName}`} className="-translate-y-2">
+          <LuBaby
+            className="hover:scale-200 cursor-pointer"
+            onClick={() => setOpenEditAuthModal(true)}
+          />
         </Tooltip>
 
         <Tooltip content="Edit book description" className="-translate-y-2">
@@ -58,6 +64,20 @@ function BookCard() {
           />
         </Tooltip>
       </div>
+
+      <EditAuthModal
+        isOpen={openEditAuthModal}
+        setIsOpen={setOpenEditAuthModal}
+        currentVal={authorName}
+        onSave={setAuthorName}
+        discardChangeLbl="Discard changes"
+        acceptChangeLbl="Accept changes"
+        modalTitle="Change author name"
+        placeholder="Enter new author name"
+        newValID="new-author-id"
+        oldValID="old-author-id"
+        changedValue="author name"
+      />
     </div>
   );
 }
