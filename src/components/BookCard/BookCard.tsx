@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import { Button, Tooltip } from 'flowbite-react';
+
 import { BsSuitHeart } from 'react-icons/bs';
 import { BsSuitHeartFill } from 'react-icons/bs';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { GiFeather } from 'react-icons/gi';
+import { LuBaby } from 'react-icons/lu';
 
 function deleteBook() {}
 
@@ -25,22 +28,23 @@ function BookCard() {
         src="<URL of book cover>"
       />
       <div className="flex flex-row justify-start items-start border-2 border-fuchsia-500 rounded-3xl p-5 gap-3.5 hover:gap-12">
-        <button
-          onClick={() => setSelectedBook(!selectedBook)}
-          className="cursor-pointer hover:scale-200"
-        >
-          {selectedBook ? <BsSuitHeartFill /> : <BsSuitHeart />}
-        </button>
-        <button
-          onClick={editBook}
-          className="flex flex-row items-center cursor-pointer hover:scale-200 gap-0.5"
-        >
-          <GiFeather />
-          <span className="-mt-0.5 leading-none">Edit</span>
-        </button>
-        <button onClick={deleteBook} className="cursor-pointer hover:scale-200">
-          <RiDeleteBinLine />
-        </button>
+        <Tooltip content="Author name: XXX" className="-translate-y-2">
+          <LuBaby className="hover:scale-200 cursor-pointer" />
+        </Tooltip>
+
+        <Tooltip content="Edit book description" className="-translate-y-2">
+          <GiFeather
+            className="hover:scale-200 cursor-pointer"
+            onClick={editBook}
+          />
+        </Tooltip>
+
+        <Tooltip content="Delete book" className="-translate-y-2">
+          <RiDeleteBinLine
+            className="hover:scale-200 cursor-pointer"
+            onClick={deleteBook}
+          />
+        </Tooltip>
       </div>
     </div>
   );
