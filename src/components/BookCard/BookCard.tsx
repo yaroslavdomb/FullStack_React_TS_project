@@ -28,6 +28,18 @@ function BookCard() {
         src="<URL of book cover>"
       />
       <div className="flex flex-row justify-start items-start border-2 border-fuchsia-500 rounded-3xl p-5 gap-3.5 hover:gap-12">
+        <Tooltip
+          content={selectedBook ? 'Dislike this book' : 'Like this book'}
+          className="-translate-y-2"
+        >
+          <button
+            onClick={() => setSelectedBook(!selectedBook)}
+            className="cursor-pointer hover:scale-200"
+          >
+            {selectedBook ? <BsSuitHeartFill /> : <BsSuitHeart />}
+          </button>
+        </Tooltip>
+
         <Tooltip content="Author name: XXX" className="-translate-y-2">
           <LuBaby className="hover:scale-200 cursor-pointer" />
         </Tooltip>
