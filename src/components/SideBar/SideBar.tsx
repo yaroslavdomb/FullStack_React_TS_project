@@ -1,3 +1,5 @@
+import { Button } from 'flowbite-react';
+import { FaBookMedical } from 'react-icons/fa6';
 import Action from './Action';
 
 function Sidebar() {
@@ -19,6 +21,10 @@ function Sidebar() {
         onButtonClick={handleServerSearch}
       />
       <Action title="Filter" buttonLbl="" onInputChange={handlePageFilter} />
+      <Button className="flex flex-row gap-2 text-2xl h-18 bg-blue-500 hover:bg-blue-700 border-4 border-blue-500  hover:border-blue-700  rounded-3xl p-8 ">
+        <FaBookMedical />
+        Add a new book
+      </Button>
     </aside>
   );
 }
