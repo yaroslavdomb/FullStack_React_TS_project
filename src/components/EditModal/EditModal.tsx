@@ -10,9 +10,8 @@ import {
 } from 'flowbite-react';
 import { useEffect, useRef, useState } from 'react';
 
-interface EditAuthModalProps {
-  isOpen: boolean;
-  setIsOpen: (state: boolean) => void;
+interface EditModalProps {
+  onClose: () => void;
   currentVal: string;
   onSave: (newValue: string) => void;
   discardChangeLbl: string;
@@ -24,9 +23,8 @@ interface EditAuthModalProps {
   changedValue: string;
 }
 
-function EditAuthModal({
-  isOpen,
-  setIsOpen,
+function EditModal({
+  onClose,
   currentVal,
   onSave,
   discardChangeLbl,
@@ -36,23 +34,21 @@ function EditAuthModal({
   newValID,
   oldValID,
   changedValue,
-}: EditAuthModalProps) {
+}: EditModalProps) {
   const [tempValue, setTempValue] = useState('');
   const inputFieldRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (isOpen) {
-      const timer = setTimeout(() => {
-        inputFieldRef.current?.focus();
-      }, 50);
+    const timer = setTimeout(() => {
+      inputFieldRef.current?.focus();
+    }, 50);
 
-      return () => clearTimeout(timer);
-    }
-  }, [isOpen]);
+    return () => clearTimeout(timer);
+  }, []);
 
   function onCloseModal() {
-    setIsOpen(false);
     setTempValue('');
+    onClose();
   }
 
   function handleAcceptChanges(name: string) {
@@ -62,7 +58,7 @@ function EditAuthModal({
 
   return (
     <>
-      <Modal show={isOpen} size="md" onClose={onCloseModal} popup>
+      <Modal show={true} size="md" onClose={onCloseModal} popup>
         <ModalHeader> {modalTitle} </ModalHeader>
         <ModalBody>
           <div>
@@ -101,4 +97,4 @@ function EditAuthModal({
   );
 }
 
-export default EditAuthModal;
+export default EditModal;

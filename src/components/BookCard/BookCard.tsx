@@ -4,18 +4,58 @@ import { Tooltip } from 'flowbite-react';
 import { BsSuitHeart, BsSuitHeartFill } from 'react-icons/bs';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { GiFeather } from 'react-icons/gi';
-import { LuBaby } from 'react-icons/lu';
+import { LuBaby, LuBookA } from 'react-icons/lu';
 
-import EditAuthModal from '../EditAuthModal/EditAuthModal';
+import EditModal from '../EditModal/EditModal';
 
 function deleteBook() {}
 
-function editBook() {}
+type EditMode = 'Author' | 'Title' | 'Description' | null;
 
 function BookCard() {
   const [selectedBook, setSelectedBook] = useState<boolean>(false);
-  const [openEditAuthModal, setOpenEditAuthModal] = useState<boolean>(false);
-  const [authorName, setAuthorName] = useState<string>('qwerty');
+  const [editMode, setEditMode] = useState<EditMode>(null);
+  const [authorName, setAuthorName] = useState<string>('defult author name');
+  const [bookTitle, setBookTitle] = useState<string>('default book title');
+  const [bookDescr, setBookDescr] = useState<string>('default book descr');
+
+  const modalConfig = {
+    Author: {
+      currentVal: authorName,
+      onSave: setAuthorName,
+      discardChangeLbl: 'Discard changes',
+      acceptChangeLbl: 'Accept changes',
+      modalTitle: 'Change author name',
+      placeholder: 'Enter new author name',
+      newValID: 'new-author-id',
+      oldValID: 'old-author-id',
+      changedValue: 'author name',
+    },
+    Title: {
+      currentVal: bookTitle,
+      onSave: setBookTitle,
+      discardChangeLbl: 'Discard changes',
+      acceptChangeLbl: 'Accept changes',
+      modalTitle: 'Change book title',
+      placeholder: 'Enter new book title',
+      newValID: 'new-book-title-id',
+      oldValID: 'old-book-title-id',
+      changedValue: 'book title',
+    },
+    Description: {
+      currentVal: bookDescr,
+      onSave: setBookDescr,
+      discardChangeLbl: 'Discard changes',
+      acceptChangeLbl: 'Accept changes',
+      modalTitle: 'Change book description',
+      placeholder: 'Enter new book description',
+      newValID: 'new-book-description-id',
+      oldValID: 'old-book-description-id',
+      changedValue: 'book description',
+    },
+  };
+
+  const currentConfig = editMode ? modalConfig[editMode] : null;
 
   return (
     <div
@@ -46,14 +86,27 @@ function BookCard() {
         <Tooltip content={`Author: ${authorName}`} className="-translate-y-2">
           <LuBaby
             className="hover:scale-200 cursor-pointer"
-            onClick={() => setOpenEditAuthModal(true)}
+            onClick={() => setEditMode('Author')}
           />
         </Tooltip>
 
-        <Tooltip content="Edit book description" className="-translate-y-2">
+        <Tooltip
+          content={`Book title: ${bookTitle}`}
+          className="-translate-y-2"
+        >
+          <LuBookA
+            className="hover:scale-200 cursor-pointer"
+            onClick={() => setEditMode('Title')}
+          />
+        </Tooltip>
+
+        <Tooltip
+          content={`Short description: ${bookDescr}`}
+          className="-translate-y-2"
+        >
           <GiFeather
             className="hover:scale-200 cursor-pointer"
-            onClick={editBook}
+            onClick={() => setEditMode('Description')}
           />
         </Tooltip>
 
@@ -65,19 +118,23 @@ function BookCard() {
         </Tooltip>
       </div>
 
-      <EditAuthModal
-        isOpen={openEditAuthModal}
-        setIsOpen={setOpenEditAuthModal}
-        currentVal={authorName}
-        onSave={setAuthorName}
-        discardChangeLbl="Discard changes"
-        acceptChangeLbl="Accept changes"
-        modalTitle="Change author name"
-        placeholder="Enter new author name"
-        newValID="new-author-id"
-        oldValID="old-author-id"
-        changedValue="author name"
-      />
+      {currentConfig && (
+        <EditModal
+          onClose={() => setEditMode(null)}
+          currentVal={currentConfig.currentVal}
+          onSave={(val) => {
+            currentConfig.onSave(val);
+            setEditMode(null);
+          }}
+          discardChangeLbl={currentConfig.discardChangeLbl}
+          acceptChangeLbl={currentConfig.acceptChangeLbl}
+          modalTitle={currentConfig.modalTitle}
+          placeholder={currentConfig.placeholder}
+          newValID={currentConfig.newValID}
+          oldValID={currentConfig.oldValID}
+          changedValue={currentConfig.changedValue}
+        />
+      )}
     </div>
   );
 }
