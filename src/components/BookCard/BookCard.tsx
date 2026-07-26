@@ -80,7 +80,11 @@ function BookCard() {
         </Tooltip>
 
         <Tooltip
-          content={`Short description: ${bookDescr}`}
+          content={
+            <div className="max-w-xs wrap-break-word max-h-80 overflow-y-auto">
+              `Short description: ${bookDescr}`
+            </div>
+          }
           className="-translate-y-2"
         >
           <GiFeather
