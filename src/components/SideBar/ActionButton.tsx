@@ -1,12 +1,12 @@
 import { Button } from 'flowbite-react';
 import { IoSearch } from 'react-icons/io5';
 
-interface actionButtonProps {
+interface ActionButtonProps {
   onClick: () => void;
   children: React.ReactNode;
 }
 
-function ActionButton({ onClick, children }: actionButtonProps) {
+function ActionButton({ onClick, children }: ActionButtonProps) {
   return (
     <div className="flex flex-row ">
       <Button

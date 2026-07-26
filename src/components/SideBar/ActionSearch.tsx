@@ -2,12 +2,12 @@
 
 import { Label, TextInput } from 'flowbite-react';
 
-interface SearchProps {
+interface ActionSearchProps {
   value: string;
   onChange: (search: string) => void;
 }
 
-function Search({ value, onChange }: SearchProps) {
+function ActionSearch({ value, onChange }: ActionSearchProps) {
   return (
     <div id="Search" className="flex max-w-md flex-col gap-4">
       <div>
@@ -33,4 +33,4 @@ function Search({ value, onChange }: SearchProps) {
   );
 }
 
-export default Search;
+export default ActionSearch;

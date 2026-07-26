@@ -7,13 +7,13 @@ import { LuBaby, LuBookOpenText, LuBookText } from 'react-icons/lu';
 import { TbArrowBigDownLines } from 'react-icons/tb';
 import { Button } from 'flowbite-react';
 
-interface DropDownProps {
+interface ActionDropDownProps {
   title: string;
   value: string;
   onChange: (category: string) => void;
 }
 
-function DropDown({ title, value, onChange }: DropDownProps) {
+function ActionDropDown({ title, value, onChange }: ActionDropDownProps) {
   return (
     <div className="font-bold text-4xl">
       <Label
@@ -58,4 +58,4 @@ function DropDown({ title, value, onChange }: DropDownProps) {
   );
 }
 
-export default DropDown;
+export default ActionDropDown;

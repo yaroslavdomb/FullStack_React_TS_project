@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import DropDown from '../DropDown/DropDown';
-import Search from '../Search/Search';
-import ActionButton from '../ActionButton/ActionButton';
+import ActionDropDown from './ActionDropDown';
+import ActionSearch from './ActionSearch';
+import ActionButton from './ActionButton';
 
 interface ActionProps {
   title: string;
@@ -43,12 +43,12 @@ function Action({
 
   return (
     <div className="flex flex-col gap-8 border-4 border-emerald-500 rounded-3xl p-3 ">
-      <DropDown
+      <ActionDropDown
         value={category}
         onChange={handleCategoryChange}
         title={title}
       />
-      {category && <Search value={query} onChange={handleQueryChange} />}
+      {category && <ActionSearch value={query} onChange={handleQueryChange} />}
       {buttonLbl && category && query.trim() && (
         <ActionButton onClick={handleClickOnButton}>{buttonLbl}</ActionButton>
       )}
