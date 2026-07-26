@@ -6,24 +6,11 @@ import { RiDeleteBinLine } from 'react-icons/ri';
 import { GiFeather } from 'react-icons/gi';
 import { LuBaby, LuBookA } from 'react-icons/lu';
 
-import EditModal from '../EditModal/EditModal';
+import EditModal from './EditModal';
+import { type EditMode } from './types';
+import { STATIC_MODAL_CONFIG } from './constants';
 
 function deleteBook() {}
-
-interface ModalConfig {
-  currentVal: string;
-  onSave: (val: string) => void;
-  discardChangeLbl: string;
-  acceptChangeLbl: string;
-  modalTitle: string;
-  placeholder: string;
-  newValID: string;
-  oldValID: string;
-  changedValue: string;
-  isMultiline?: boolean | undefined;
-}
-
-type EditMode = 'Author' | 'Title' | 'Description' | null;
 
 function BookCard() {
   const [selectedBook, setSelectedBook] = useState<boolean>(false);
@@ -32,44 +19,22 @@ function BookCard() {
   const [bookTitle, setBookTitle] = useState<string>('default book title');
   const [bookDescr, setBookDescr] = useState<string>('default book descr');
 
-  const modalConfig: Record<Exclude<EditMode, null>, ModalConfig> = {
-    Author: {
-      currentVal: authorName,
-      onSave: setAuthorName,
-      discardChangeLbl: 'Discard changes',
-      acceptChangeLbl: 'Accept changes',
-      modalTitle: 'Change author name',
-      placeholder: 'Enter new author name',
-      newValID: 'new-author-id',
-      oldValID: 'old-author-id',
-      changedValue: 'author name',
-    },
-    Title: {
-      currentVal: bookTitle,
-      onSave: setBookTitle,
-      discardChangeLbl: 'Discard changes',
-      acceptChangeLbl: 'Accept changes',
-      modalTitle: 'Change book title',
-      placeholder: 'Enter new book title',
-      newValID: 'new-book-title-id',
-      oldValID: 'old-book-title-id',
-      changedValue: 'book title',
-    },
-    Description: {
-      currentVal: bookDescr,
-      onSave: setBookDescr,
-      discardChangeLbl: 'Discard changes',
-      acceptChangeLbl: 'Accept changes',
-      modalTitle: 'Change book description',
-      placeholder: 'Enter new book description',
-      newValID: 'new-book-description-id',
-      oldValID: 'old-book-description-id',
-      changedValue: 'book description',
-      isMultiline: true,
-    },
+  const getCurrentConfig = () => {
+    if (!editMode) return null;
+
+    const dynamicData = {
+      Author: { currentVal: authorName, onSave: setAuthorName },
+      Title: { currentVal: bookTitle, onSave: setBookTitle },
+      Description: { currentVal: bookDescr, onSave: setBookDescr },
+    };
+
+    return {
+      ...STATIC_MODAL_CONFIG[editMode],
+      ...dynamicData[editMode],
+    };
   };
 
-  const currentConfig = editMode ? modalConfig[editMode] : null;
+  const currentConfig = getCurrentConfig();
 
   return (
     <div
