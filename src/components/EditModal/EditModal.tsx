@@ -7,6 +7,7 @@ import {
   ModalBody,
   ModalHeader,
   TextInput,
+  Textarea,
 } from 'flowbite-react';
 import { useEffect, useRef, useState } from 'react';
 
@@ -21,6 +22,7 @@ interface EditModalProps {
   newValID: string;
   oldValID: string;
   changedValue: string;
+  isMultiline?: boolean;
 }
 
 function EditModal({
@@ -34,9 +36,10 @@ function EditModal({
   newValID,
   oldValID,
   changedValue,
+  isMultiline = false,
 }: EditModalProps) {
   const [tempValue, setTempValue] = useState('');
-  const inputFieldRef = useRef<HTMLInputElement>(null);
+  const inputFieldRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -63,17 +66,32 @@ function EditModal({
         <ModalBody>
           <div>
             <Label htmlFor={oldValID}>Current {changedValue}:</Label>
-            <TextInput id={oldValID} readOnly value={currentVal} />
+            {isMultiline ? (
+              <Textarea id={oldValID} readOnly value={currentVal} rows={6} />
+            ) : (
+              <TextInput id={oldValID} readOnly value={currentVal} />
+            )}
           </div>
           <div>
             <Label htmlFor={newValID}>New {changedValue}:</Label>
-            <TextInput
-              ref={inputFieldRef}
-              id={newValID}
-              value={tempValue}
-              placeholder={placeholder}
-              onChange={(e) => setTempValue(e.target.value)}
-            ></TextInput>
+            {isMultiline ? (
+              <Textarea
+                ref={inputFieldRef as React.RefObject<HTMLTextAreaElement>}
+                id={newValID}
+                value={tempValue}
+                placeholder={placeholder}
+                onChange={(e) => setTempValue(e.target.value)}
+                rows={6}
+              />
+            ) : (
+              <TextInput
+                ref={inputFieldRef as React.RefObject<HTMLInputElement>}
+                id={newValID}
+                value={tempValue}
+                placeholder={placeholder}
+                onChange={(e) => setTempValue(e.target.value)}
+              />
+            )}
           </div>
           <div className="flex justify-end gap-2 mt-4">
             {tempValue.trim() && (

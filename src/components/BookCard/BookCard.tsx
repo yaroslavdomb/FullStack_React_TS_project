@@ -10,6 +10,19 @@ import EditModal from '../EditModal/EditModal';
 
 function deleteBook() {}
 
+interface ModalConfig {
+  currentVal: string;
+  onSave: (val: string) => void;
+  discardChangeLbl: string;
+  acceptChangeLbl: string;
+  modalTitle: string;
+  placeholder: string;
+  newValID: string;
+  oldValID: string;
+  changedValue: string;
+  isMultiline?: boolean | undefined;
+}
+
 type EditMode = 'Author' | 'Title' | 'Description' | null;
 
 function BookCard() {
@@ -19,7 +32,7 @@ function BookCard() {
   const [bookTitle, setBookTitle] = useState<string>('default book title');
   const [bookDescr, setBookDescr] = useState<string>('default book descr');
 
-  const modalConfig = {
+  const modalConfig: Record<Exclude<EditMode, null>, ModalConfig> = {
     Author: {
       currentVal: authorName,
       onSave: setAuthorName,
@@ -52,6 +65,7 @@ function BookCard() {
       newValID: 'new-book-description-id',
       oldValID: 'old-book-description-id',
       changedValue: 'book description',
+      isMultiline: true,
     },
   };
 
@@ -133,6 +147,7 @@ function BookCard() {
           newValID={currentConfig.newValID}
           oldValID={currentConfig.oldValID}
           changedValue={currentConfig.changedValue}
+          isMultiline={currentConfig.isMultiline}
         />
       )}
     </div>
