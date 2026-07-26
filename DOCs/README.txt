@@ -19,3 +19,14 @@ RUN
 React components used:
   useState
   useEffect
+
+Flowbite-React elements used:
+  Button
+  DropDown --> DropDownItem
+  Label
+  Modal --> ModalBody/ModalHeader
+  Textarea
+  TextInput
+  Tooltip
+  
+  
