@@ -16,13 +16,11 @@ interface ActionDropDownProps {
 function ActionDropDown({ title, value, onChange }: ActionDropDownProps) {
   return (
     <div className="font-bold text-4xl">
-      <Label
-        htmlFor="search-category-dropdown"
-        className="mb-2 block font-bold text-2xl"
-      >
+      <Label htmlFor="search-category-dropdown" className="mb-2 block font-bold text-2xl">
         {title} by:
       </Label>
       <Dropdown
+        id="search-category-dropdown"
         renderTrigger={() => (
           <Button className="bg-blue-500 hover:bg-blue-700 text-2xl">
             <span className="flex items-center">
