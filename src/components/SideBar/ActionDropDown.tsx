@@ -2,7 +2,7 @@
 
 'use client';
 
-import { Dropdown, DropdownItem, Label } from 'flowbite-react';
+import { Dropdown, DropdownItem } from 'flowbite-react';
 import { LuBaby, LuBookOpenText, LuBookText } from 'react-icons/lu';
 import { TbArrowBigDownLines } from 'react-icons/tb';
 import { Button } from 'flowbite-react';
