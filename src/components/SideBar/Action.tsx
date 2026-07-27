@@ -18,10 +18,6 @@ function Action({ title, buttonLbl, onButtonClick, onInputChange }: ActionProps)
   const handleCategoryChange = (newCategory: string) => {
     setCategory(newCategory);
     setQuery('');
-
-    if (onInputChange) {
-      onInputChange(newCategory, '');
-    }
   };
 
   const handleQueryChange = (newQuery: string) => {

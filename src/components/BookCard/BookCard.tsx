@@ -22,8 +22,8 @@ function BookCard({ currentBook }: { currentBook: Book }) {
     console.log(`Axios going to call to db to save updated book`);
     const resp = await ApiService.editBook(updatedBook);
     if (resp) {
-      console.log(JSON.stringify(resp.data, null, 2));
-      //processSaveResponse(resp);
+      if (resp.status.toString().startsWith('2')) console.log(JSON.stringify(resp.data, null, 2));
+      else console.error('handleSaveOnServer - Error ' + resp.status);
     } else {
       console.error('handleSaveOnServer - No response from BE! Please check network settings');
     }
@@ -39,10 +39,14 @@ function BookCard({ currentBook }: { currentBook: Book }) {
   }
 
   async function deleteBook() {
+    console.log('Axios going to delete the book');
     hideBook();
     const response = await ApiService.deleteBook(currentBook.id);
     if (response) {
-      if (response.status.toString().startsWith('2')) console.table(response.data);
+      if (response.status.toString().startsWith('2')) {
+        console.log('Book deleted:');
+        console.table(response.data);
+      }
     } else {
       console.log('No response!');
     }
