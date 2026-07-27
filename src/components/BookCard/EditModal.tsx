@@ -57,33 +57,35 @@ function EditModal({
         <ModalHeader> {modalTitle} </ModalHeader>
         <ModalBody>
           <div>
-            <Label htmlFor={oldValID}>Current {changedValue}:</Label>
-            {isMultiline ? (
-              <Textarea id={oldValID} readOnly value={currentVal} rows={6} />
-            ) : (
-              <TextInput id={oldValID} readOnly value={currentVal} />
-            )}
+            <Label>
+              <span className="mb-2 block">Current {changedValue}:</span>
+              {isMultiline ? (
+                <Textarea readOnly value={currentVal} rows={6} />
+              ) : (
+                <TextInput readOnly value={currentVal} />
+              )}
+            </Label>
           </div>
           <div>
-            <Label htmlFor={newValID}>New {changedValue}:</Label>
-            {isMultiline ? (
-              <Textarea
-                ref={inputFieldRef as React.RefObject<HTMLTextAreaElement>}
-                id={newValID}
-                value={tempValue}
-                placeholder={placeholder}
-                onChange={(e) => setTempValue(e.target.value)}
-                rows={6}
-              />
-            ) : (
-              <TextInput
-                ref={inputFieldRef as React.RefObject<HTMLInputElement>}
-                id={newValID}
-                value={tempValue}
-                placeholder={placeholder}
-                onChange={(e) => setTempValue(e.target.value)}
-              />
-            )}
+            <Label>
+              <span className="mb-2 block">New {changedValue}:</span>
+              {isMultiline ? (
+                <Textarea
+                  ref={inputFieldRef as React.RefObject<HTMLTextAreaElement>}
+                  value={tempValue}
+                  placeholder={placeholder}
+                  onChange={(e) => setTempValue(e.target.value)}
+                  rows={6}
+                />
+              ) : (
+                <TextInput
+                  ref={inputFieldRef as React.RefObject<HTMLInputElement>}
+                  value={tempValue}
+                  placeholder={placeholder}
+                  onChange={(e) => setTempValue(e.target.value)}
+                />
+              )}
+            </Label>
           </div>
           <div className="flex justify-end gap-2 mt-4">
             {tempValue.trim() && (

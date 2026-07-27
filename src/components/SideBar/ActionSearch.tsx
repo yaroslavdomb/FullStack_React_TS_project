@@ -11,23 +11,16 @@ function ActionSearch({ value, onChange }: ActionSearchProps) {
   return (
     <div id="Search" className="flex max-w-md flex-col gap-4">
       <div>
-        <div className="mb-2 block font-bold text-2xl">
-          <Label
-            htmlFor="search-line"
-            color="gray"
-            className="font-bold! text-2xl!"
-          >
-            Search for:
-          </Label>
-        </div>
-        <TextInput
-          id="search-line"
-          placeholder="Search line"
-          required
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className="text-2xl! italic! text-gray-300!"
-        />
+        <Label color="gray" className="mb-2 block font-bold! text-2xl!">
+          Search for:
+          <TextInput
+            placeholder="Search line"
+            required
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            className="mt-2 text-2xl! italic! text-gray-300!"
+          />
+        </Label>
       </div>
     </div>
   );
