@@ -118,7 +118,7 @@ function BookCard({ currentBook }: { currentBook: Book }) {
         <Tooltip
           content={
             <div className="max-w-xs wrap-break-word max-h-80 overflow-y-auto">
-              `Short description: ${currentBook.description}`
+              {`Short description: ${currentBook.description}`}
             </div>
           }
           className="-translate-y-2"
