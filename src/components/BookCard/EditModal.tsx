@@ -1,14 +1,6 @@
 'use client';
 
-import {
-  Button,
-  Label,
-  Modal,
-  ModalBody,
-  ModalHeader,
-  TextInput,
-  Textarea,
-} from 'flowbite-react';
+import { Button, Label, Modal, ModalBody, ModalHeader, TextInput, Textarea } from 'flowbite-react';
 import { useEffect, useRef, useState } from 'react';
 
 interface EditModalProps {
@@ -54,8 +46,8 @@ function EditModal({
     onClose();
   }
 
-  function handleAcceptChanges(name: string) {
-    onSave(name);
+  function handleAcceptChanges(fieldNewValue: string) {
+    onSave(fieldNewValue);
     onCloseModal();
   }
 
@@ -102,10 +94,7 @@ function EditModal({
                 {acceptChangeLbl}
               </Button>
             )}
-            <Button
-              onClick={() => onCloseModal()}
-              className="w-fit bg-blue-500 text-white hover:bg-blue-700"
-            >
+            <Button onClick={() => onCloseModal()} className="w-fit bg-blue-500 text-white hover:bg-blue-700">
               {discardChangeLbl}
             </Button>
           </div>

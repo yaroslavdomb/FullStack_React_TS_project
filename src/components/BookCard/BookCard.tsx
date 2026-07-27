@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Tooltip } from 'flowbite-react';
 
 import { BsSuitHeart, BsSuitHeartFill } from 'react-icons/bs';
@@ -9,23 +9,58 @@ import { LuBaby, LuBookA } from 'react-icons/lu';
 import EditModal from './EditModal';
 import { type EditMode } from './types';
 import { STATIC_MODAL_CONFIG } from './constants';
+import type { Book } from '../../models/Book';
+import { BookContext } from '../../context/BookContext';
+import { ApiService } from '../../services/api-service';
 
-function deleteBook() {}
-
-function BookCard() {
-  const [selectedBook, setSelectedBook] = useState<boolean>(false);
+function BookCard({ currentBook }: { currentBook: Book }) {
+  const { books, setBooks } = useContext(BookContext)!;
   const [editMode, setEditMode] = useState<EditMode>(null);
-  const [authorName, setAuthorName] = useState<string>('defult author name');
-  const [bookTitle, setBookTitle] = useState<string>('default book title');
-  const [bookDescr, setBookDescr] = useState<string>('default book descr');
+
+  const handleSaveOnServer = async (updatedBook: Book) => {
+    console.log(`Axios going to call to db to save updated book`);
+    const resp = await ApiService.editBook(updatedBook);
+    if (resp) {
+      console.log(JSON.stringify(resp.data, null, 2));
+      //processSaveResponse(resp);
+    } else {
+      console.error('handleSaveOnServer - No response from BE! Please check network settings');
+    }
+  };
+
+  function onBookChange(changedBook: Book) {
+    const updatedBooksList: Array<Book> = books.map((currentBook: Book) => {
+      return currentBook.id === changedBook.id ? changedBook : currentBook;
+    });
+
+    setBooks(updatedBooksList);
+    handleSaveOnServer(changedBook);
+  }
+
+  function deleteBook() {
+    const updatedBooksList = books.filter((book: Book) => {
+      return book.id !== currentBook.id;
+    });
+
+    setBooks(updatedBooksList);
+  }
 
   const getCurrentConfig = () => {
     if (!editMode) return null;
 
     const dynamicData = {
-      Author: { currentVal: authorName, onSave: setAuthorName },
-      Title: { currentVal: bookTitle, onSave: setBookTitle },
-      Description: { currentVal: bookDescr, onSave: setBookDescr },
+      Author: {
+        currentVal: currentBook.author,
+        onSave: (newValue: string) => onBookChange({ ...currentBook, author: newValue }),
+      },
+      Title: {
+        currentVal: currentBook.title,
+        onSave: (newValue: string) => onBookChange({ ...currentBook, title: newValue }),
+      },
+      Description: {
+        currentVal: currentBook.description,
+        onSave: (newValue: string) => onBookChange({ ...currentBook, description: newValue }),
+      },
     };
 
     return {
@@ -50,54 +85,38 @@ function BookCard() {
         src="<URL of book cover>"
       />
       <div className="flex flex-row justify-center items-center border-2 border-fuchsia-500 rounded-3xl p-3 gap-2 hover:gap-8">
-        <Tooltip
-          content={selectedBook ? 'Dislike this book' : 'Like this book'}
-          className="-translate-y-2"
-        >
+        <Tooltip content={currentBook.isFavorite ? 'Dislike this book' : 'Like this book'} className="-translate-y-2">
           <button
-            onClick={() => setSelectedBook(!selectedBook)}
+            onClick={() => {
+              onBookChange({ ...currentBook, isFavorite: !currentBook.isFavorite });
+            }}
             className="cursor-pointer hover:scale-200"
           >
-            {selectedBook ? <BsSuitHeartFill /> : <BsSuitHeart />}
+            {currentBook.isFavorite ? <BsSuitHeartFill /> : <BsSuitHeart />}
           </button>
         </Tooltip>
 
-        <Tooltip content={`Author: ${authorName}`} className="-translate-y-2">
-          <LuBaby
-            className="hover:scale-200 cursor-pointer"
-            onClick={() => setEditMode('Author')}
-          />
+        <Tooltip content={`Author: ${currentBook.author}`} className="-translate-y-2">
+          <LuBaby className="hover:scale-200 cursor-pointer" onClick={() => setEditMode('Author')} />
         </Tooltip>
 
-        <Tooltip
-          content={`Book title: ${bookTitle}`}
-          className="-translate-y-2"
-        >
-          <LuBookA
-            className="hover:scale-200 cursor-pointer"
-            onClick={() => setEditMode('Title')}
-          />
+        <Tooltip content={`Book title: ${currentBook.title}`} className="-translate-y-2">
+          <LuBookA className="hover:scale-200 cursor-pointer" onClick={() => setEditMode('Title')} />
         </Tooltip>
 
         <Tooltip
           content={
             <div className="max-w-xs wrap-break-word max-h-80 overflow-y-auto">
-              `Short description: ${bookDescr}`
+              `Short description: ${currentBook.description}`
             </div>
           }
           className="-translate-y-2"
         >
-          <GiFeather
-            className="hover:scale-200 cursor-pointer"
-            onClick={() => setEditMode('Description')}
-          />
+          <GiFeather className="hover:scale-200 cursor-pointer" onClick={() => setEditMode('Description')} />
         </Tooltip>
 
         <Tooltip content="Delete book" className="-translate-y-2">
-          <RiDeleteBinLine
-            className="hover:scale-200 cursor-pointer"
-            onClick={deleteBook}
-          />
+          <RiDeleteBinLine className="hover:scale-200 cursor-pointer" onClick={deleteBook} />
         </Tooltip>
       </div>
 
@@ -105,8 +124,8 @@ function BookCard() {
         <EditModal
           onClose={() => setEditMode(null)}
           currentVal={currentConfig.currentVal}
-          onSave={(val) => {
-            currentConfig.onSave(val);
+          onSave={(newValue: string) => {
+            currentConfig.onSave(newValue);
             setEditMode(null);
           }}
           discardChangeLbl={currentConfig.discardChangeLbl}

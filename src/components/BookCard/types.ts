@@ -10,3 +10,9 @@ export interface ModalConfig {
 }
 
 export type EditMode = 'Author' | 'Title' | 'Description' | null;
+
+export const categoryMapper: Record<string, string> = {
+  Author: 'author',
+  'Book Name': 'title',
+  Description: 'description',
+};

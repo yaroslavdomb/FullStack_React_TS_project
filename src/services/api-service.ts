@@ -12,5 +12,5 @@ export const ApiService = {
   getBookById: (id: string) => _axios.get<Book>(`books/${id}`),
   addNewBook: (newBook: Book) => _axios.post<Book>(`books`, newBook),
   deleteBook: (id: string) => _axios.delete<Book>(`books/${id}`),
-  editBook: (editedBook: Book) => _axios.put<Book>(`books/${editedBook._id}`, editedBook),
+  editBook: (editedBook: Book) => _axios.put<Book>(`books/${editedBook.id}`, editedBook),
 };
