@@ -11,8 +11,6 @@ interface EditModalProps {
   acceptChangeLbl: string;
   modalTitle: string;
   placeholder: string;
-  newValID: string;
-  oldValID: string;
   changedValue: string;
   isMultiline?: boolean;
 }
@@ -25,8 +23,6 @@ function EditModal({
   acceptChangeLbl,
   modalTitle,
   placeholder,
-  newValID,
-  oldValID,
   changedValue,
   isMultiline = false,
 }: EditModalProps) {
