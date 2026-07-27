@@ -5,11 +5,12 @@ import { BsSuitHeart, BsSuitHeartFill } from 'react-icons/bs';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { GiFeather } from 'react-icons/gi';
 import { LuBaby, LuBookA } from 'react-icons/lu';
+import { BiHide } from 'react-icons/bi';
 
 import EditModal from './EditModal';
 import { type EditMode } from './types';
 import { STATIC_MODAL_CONFIG } from './constants';
-import type { Book } from '../../models/Book';
+import { type Book } from '../../models/Book';
 import { BookContext } from '../../context/BookContext';
 import { ApiService } from '../../services/api-service';
 
@@ -37,7 +38,17 @@ function BookCard({ currentBook }: { currentBook: Book }) {
     handleSaveOnServer(changedBook);
   }
 
-  function deleteBook() {
+  async function deleteBook() {
+    hideBook();
+    const response = await ApiService.deleteBook(currentBook.id);
+    if (response) {
+      if (response.status.toString().startsWith('2')) console.table(response.data);
+    } else {
+      console.log('No response!');
+    }
+  }
+
+  function hideBook() {
     const updatedBooksList = books.filter((book: Book) => {
       return book.id !== currentBook.id;
     });
@@ -115,7 +126,11 @@ function BookCard({ currentBook }: { currentBook: Book }) {
           <GiFeather className="hover:scale-200 cursor-pointer" onClick={() => setEditMode('Description')} />
         </Tooltip>
 
-        <Tooltip content="Delete book" className="-translate-y-2">
+        <Tooltip content="Hide the book" className="-translate-y-2">
+          <BiHide className="hover:scale-200 cursor-pointer" onClick={hideBook} />
+        </Tooltip>
+
+        <Tooltip content="Delete the book" className="-translate-y-2">
           <RiDeleteBinLine className="hover:scale-200 cursor-pointer" onClick={deleteBook} />
         </Tooltip>
       </div>
@@ -132,8 +147,6 @@ function BookCard({ currentBook }: { currentBook: Book }) {
           acceptChangeLbl={currentConfig.acceptChangeLbl}
           modalTitle={currentConfig.modalTitle}
           placeholder={currentConfig.placeholder}
-          newValID={currentConfig.newValID}
-          oldValID={currentConfig.oldValID}
           changedValue={currentConfig.changedValue}
           isMultiline={currentConfig.isMultiline}
         />

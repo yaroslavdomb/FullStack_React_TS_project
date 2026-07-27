@@ -3,8 +3,6 @@ export interface ModalConfig {
   acceptChangeLbl: string;
   modalTitle: string;
   placeholder: string;
-  newValID: string;
-  oldValID: string;
   changedValue: string;
   isMultiline?: boolean | undefined;
 }

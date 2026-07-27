@@ -20,8 +20,9 @@ mockapi
   https://6a65fa9f06b3848d4b86f4bc.mockapi.io/api/v1/books
 
 React components used:
-  useState
-  useEffect
+  useState  = on ... 
+  useEffect = on page loading
+  useId     = on SideBar Actions to prevenrt id duplication for search/filter
 
 Flowbite-React elements used:
   Button

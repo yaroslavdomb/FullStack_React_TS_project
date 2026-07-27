@@ -75,6 +75,7 @@ function EditModal({
                 />
               ) : (
                 <TextInput
+                  id="modal-new-value-field"
                   ref={inputFieldRef as React.RefObject<HTMLInputElement>}
                   value={tempValue}
                   placeholder={placeholder}
