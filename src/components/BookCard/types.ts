@@ -13,4 +13,5 @@ export const categoryMapper: Record<string, string> = {
   Author: 'author',
   'Book Name': 'title',
   Description: 'description',
+  'Book ID': 'id',
 };

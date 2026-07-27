@@ -1,6 +1,6 @@
 import { type EditMode, type ModalConfig } from './types';
 
-export const STATIC_MODAL_CONFIG: Record<Exclude<EditMode, null>, ModalConfig> = {
+export const STATIC_MODAL_CONFIG: Record<Exclude<Exclude<EditMode, null>, 'Id'>, ModalConfig> = {
   Author: {
     discardChangeLbl: 'Discard changes',
     acceptChangeLbl: 'Accept changes',

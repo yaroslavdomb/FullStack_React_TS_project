@@ -4,6 +4,7 @@
 
 import { Dropdown, DropdownItem } from 'flowbite-react';
 import { LuBaby, LuBookOpenText, LuBookText } from 'react-icons/lu';
+import { MdNumbers } from 'react-icons/md';
 import { TbArrowBigDownLines } from 'react-icons/tb';
 import { Button } from 'flowbite-react';
 
@@ -47,6 +48,13 @@ function ActionDropDown({ title, value, onChange }: ActionDropDownProps) {
           className="hover:bg-blue-700! hover:text-white font-bold text-xl"
         >
           Description
+        </DropdownItem>
+        <DropdownItem
+          icon={MdNumbers}
+          onClick={() => onChange('Book ID')}
+          className="hover:bg-blue-700! hover:text-white font-bold text-xl"
+        >
+          Book ID
         </DropdownItem>
       </Dropdown>
     </div>
