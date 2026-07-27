@@ -7,6 +7,7 @@ import { LuBaby, LuBookOpenText, LuBookText } from 'react-icons/lu';
 import { MdNumbers } from 'react-icons/md';
 import { TbArrowBigDownLines } from 'react-icons/tb';
 import { Button } from 'flowbite-react';
+import { DROPDOWN_ITEM_STYLE } from '../../constants/styles';
 
 interface ActionDropDownProps {
   title: string;
@@ -28,32 +29,20 @@ function ActionDropDown({ title, value, onChange }: ActionDropDownProps) {
           </Button>
         )}
       >
-        <DropdownItem
-          icon={LuBaby}
-          onClick={() => onChange('Author')}
-          className="hover:bg-blue-700! hover:text-white font-bold text-xl"
-        >
+        <DropdownItem icon={LuBaby} onClick={() => onChange('Author')} className={`${DROPDOWN_ITEM_STYLE}`}>
           Author
         </DropdownItem>
-        <DropdownItem
-          icon={LuBookText}
-          onClick={() => onChange('Book Name')}
-          className="hover:bg-blue-700! hover:text-white font-bold text-xl"
-        >
+        <DropdownItem icon={LuBookText} onClick={() => onChange('Book Name')} className={`${DROPDOWN_ITEM_STYLE}`}>
           Book Name
         </DropdownItem>
         <DropdownItem
           icon={LuBookOpenText}
           onClick={() => onChange('Description')}
-          className="hover:bg-blue-700! hover:text-white font-bold text-xl"
+          className={`${DROPDOWN_ITEM_STYLE}`}
         >
           Description
         </DropdownItem>
-        <DropdownItem
-          icon={MdNumbers}
-          onClick={() => onChange('Book ID')}
-          className="hover:bg-blue-700! hover:text-white font-bold text-xl"
-        >
+        <DropdownItem icon={MdNumbers} onClick={() => onChange('Book ID')} className={`${DROPDOWN_ITEM_STYLE}`}>
           Book ID
         </DropdownItem>
       </Dropdown>

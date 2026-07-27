@@ -5,7 +5,7 @@ import { type Book } from '../../models/Book';
 import { ApiService } from '../../services/api-service';
 
 function MainPage() {
-  const { books, setBooks } = useContext(BookContext)!;
+  const { setBooks, filteredBooks } = useContext(BookContext)!;
 
   useEffect(() => {
     const fetchAllBookCollection = async () => {
@@ -26,7 +26,7 @@ function MainPage() {
 
   return (
     <div className="flex flex-wrap justify-center items-center gap-3.5 border-4 border-amber-500 rounded-3xl p-5">
-      {books.map((book: Book) => (
+      {filteredBooks.map((book: Book) => (
         <BookCard key={book.id} currentBook={book} />
       ))}
     </div>

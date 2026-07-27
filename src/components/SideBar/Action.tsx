@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import ActionDropDown from './ActionDropDown';
 import ActionSearch from './ActionSearch';
 import ActionButton from './ActionButton';
 import { Button } from 'flowbite-react';
+import { BookContext } from '../../context/BookContext';
 
 interface ActionProps {
   title: string;
@@ -11,9 +12,8 @@ interface ActionProps {
   onInputChange?: (category: string, query: string) => void;
 }
 
-function Action({ title, buttonLbl, onButtonClick, onInputChange }: ActionProps) {
-  const [category, setCategory] = useState<string>('');
-  const [query, setQuery] = useState<string>('');
+function Action({ title, buttonLbl, onButtonClick }: ActionProps) {
+  const { category, setCategory, query, setQuery } = useContext(BookContext)!;
 
   const handleCategoryChange = (newCategory: string) => {
     setCategory(newCategory);
@@ -22,9 +22,6 @@ function Action({ title, buttonLbl, onButtonClick, onInputChange }: ActionProps)
 
   const handleQueryChange = (newQuery: string) => {
     setQuery(newQuery);
-    if (onInputChange) {
-      onInputChange(category, newQuery);
-    }
   };
 
   const handleClickOnButton = () => {
@@ -36,9 +33,6 @@ function Action({ title, buttonLbl, onButtonClick, onInputChange }: ActionProps)
   const handleClearForm = () => {
     setCategory('');
     setQuery('');
-    if (onInputChange) {
-      onInputChange('', '');
-    }
   };
 
   return (

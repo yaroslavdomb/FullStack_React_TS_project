@@ -15,7 +15,7 @@ import { BookContext } from '../../context/BookContext';
 import { ApiService } from '../../services/api-service';
 
 function BookCard({ currentBook }: { currentBook: Book }) {
-  const { books, setBooks } = useContext(BookContext)!;
+  const { books, setBooks, hideBook } = useContext(BookContext)!;
   const [editMode, setEditMode] = useState<EditMode>(null);
 
   const handleSaveOnServer = async (updatedBook: Book) => {
@@ -39,8 +39,13 @@ function BookCard({ currentBook }: { currentBook: Book }) {
   }
 
   async function deleteBook() {
-    console.log('Axios going to delete the book');
-    hideBook();
+    console.log('Delete the book locally');
+    const filteredBooks = books.filter((book: Book) => {
+      return book.id !== currentBook.id;
+    });
+    setBooks(filteredBooks);
+
+    console.log('Delete the book on server');
     const response = await ApiService.deleteBook(currentBook.id);
     if (response) {
       if (response.status.toString().startsWith('2')) {
@@ -50,14 +55,6 @@ function BookCard({ currentBook }: { currentBook: Book }) {
     } else {
       console.log('No response!');
     }
-  }
-
-  function hideBook() {
-    const updatedBooksList = books.filter((book: Book) => {
-      return book.id !== currentBook.id;
-    });
-
-    setBooks(updatedBooksList);
   }
 
   const getCurrentConfig = () => {
@@ -131,7 +128,7 @@ function BookCard({ currentBook }: { currentBook: Book }) {
         </Tooltip>
 
         <Tooltip content="Hide the book" className="-translate-y-2">
-          <BiHide className="hover:scale-200 cursor-pointer" onClick={hideBook} />
+          <BiHide className="hover:scale-200 cursor-pointer" onClick={() => hideBook(currentBook.id)} />
         </Tooltip>
 
         <Tooltip content="Delete the book" className="-translate-y-2">

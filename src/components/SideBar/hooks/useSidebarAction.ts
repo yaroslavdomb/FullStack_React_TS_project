@@ -1,12 +1,11 @@
 import { useContext } from 'react';
 import { BookContext } from '../../../context/BookContext';
 import { ApiService } from '../../../services/api-service';
-import { filterBooks } from '../utils/bookFilter';
 import { type AxiosResponse } from 'axios';
 import { type Book } from '../../../models/Book';
 
 export function useSidebarAction() {
-  const { books, setBooks } = useContext(BookContext)!;
+  const { books, setBooks, setCategory, setQuery } = useContext(BookContext)!;
 
   function processError(resp: AxiosResponse<Array<Book>>) {
     console.error('Some error occur:' + resp.status);
@@ -22,8 +21,9 @@ export function useSidebarAction() {
     console.log('resp.status: ' + resp.status);
     if (resp.status.toString().startsWith('2')) {
       console.table(resp.data);
-      const newBookList = filterBooks(resp.data, category, query);
-      setBooks(newBookList);
+      setBooks(resp.data);
+      setCategory(category);
+      setQuery(query);
     } else {
       processError(resp);
     }
@@ -62,11 +62,11 @@ export function useSidebarAction() {
   };
 
   const handlePageFilter = async (category: string, query: string) => {
-    if (!category || !query || books.length === 0) return;
+    if (books.length === 0) return;
 
     console.log(`Filter data on current page for category = ${category} and query = ${query}`);
-    const filteredBooks = filterBooks(books, category, query);
-    setBooks(filteredBooks);
+    setCategory(category);
+    setQuery(query);
   };
 
   const handleRestoreCollection = async () => {
