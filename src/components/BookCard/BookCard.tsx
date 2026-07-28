@@ -90,18 +90,25 @@ function BookCard({ currentBook }: { currentBook: Book }) {
   return (
     <div
       className="flex flex-col justify-center items-center w-72 h-72
-      min-[400px]:w-96 min-[400px]:h-128
-      min-[700px]:w-72 min-[700px]:h-128
-      min-[800px]:w-96 min-[800px]:h-128 
+      min-[400px]:w-96 min-[400px]:h-150
+      min-[700px]:w-72 min-[700px]:h-150
+      min-[800px]:w-96 min-[800px]:h-150 
       border-4 border-cyan-500 rounded-3xl p-5 gap-2"
       tabIndex={0}
       onClick={() => setSelectedCard(currentBook)}
     >
-      <img
-        className="w-60 h-96 md:w-80 md:h-108 border-2 border-emerald-500 rounded-3xl p-5"
-        alt="No book cover found"
-        src={currentBook.coverUrl}
-      />
+      {currentBook.coverUrl ? (
+        <img
+          className=" border-2 border-emerald-500 rounded-3xl p-5"
+          alt={currentBook.title}
+          src={currentBook.coverUrl}
+        />
+      ) : (
+        <div className="w-60 h-90 md:w-80 md:h-108 border-2 border-emerald-500 rounded-3xl p-5 cover-placeholder">
+          No book cover found
+        </div>
+      )}
+
       <div className="flex flex-row justify-center items-center border-2 border-fuchsia-500 rounded-3xl p-3 gap-2 hover:gap-8">
         <Tooltip content={currentBook.isFavorite ? 'Dislike this book' : 'Like this book'} className="-translate-y-2">
           <button

@@ -1,14 +1,21 @@
 import { createContext, useState, useMemo, type ReactNode } from 'react';
 import { type Book } from '../models/Book';
-import { categoryMapper } from '../components/BookCard/types';
+import { filterBooks } from './filterBooks';
 
 interface BookContextType {
   books: Book[];
   setBooks: (books: Book[]) => void;
-  query: string;
-  setQuery: (query: string) => void;
-  category: string;
-  setCategory: (category: string) => void;
+
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  searchCategory: string;
+  setSearchCategory: (category: string) => void;
+
+  filterQuery: string;
+  setFilterQuery: (query: string) => void;
+  filterCategory: string;
+  setFilterCategory: (category: string) => void;
+
   filteredBooks: Book[];
   hideBook: (id: string) => void;
   selectedCard: Book | null;
@@ -20,8 +27,10 @@ export const BookContext = createContext<BookContextType | null>(null);
 export function BookProvider({ children }: { children: ReactNode }) {
   const [books, setBooks] = useState<Array<Book>>([]);
   const [hiddenBookIds, setHiddenBookIds] = useState<Array<string>>([]);
-  const [query, setQuery] = useState('');
-  const [category, setCategory] = useState('');
+  const [searchCategory, setSearchCategory] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterCategory, setFilterCategory] = useState('');
+  const [filterQuery, setFilterQuery] = useState('');
   const [selectedCard, setSelectedCard] = useState<Book | null>(null);
 
   const hideBook = (id: string) => {
@@ -29,28 +38,23 @@ export function BookProvider({ children }: { children: ReactNode }) {
   };
 
   const filteredBooks = useMemo(() => {
-    if (!query || !category) return books;
-
-    const key = categoryMapper[category] as keyof Book;
-    if (!key) return books;
-
-    const passedFilter: Array<Book> = books
-      .filter((book) => !hiddenBookIds.includes(book.id))
-      .filter((book) => book[key].toString().includes(query));
-    console.table(passedFilter);
-
-    return passedFilter;
-  }, [books, query, category]);
+    const visibleBooks: Array<Book> = books.filter((book) => !hiddenBookIds.includes(book.id));
+    return filterBooks(visibleBooks, filterCategory, filterQuery);
+  }, [books, hiddenBookIds, filterCategory, filterQuery]);
 
   return (
     <BookContext.Provider
       value={{
         books,
         setBooks,
-        query,
-        setQuery,
-        category,
-        setCategory,
+        searchCategory,
+        setSearchCategory,
+        searchQuery,
+        setSearchQuery,
+        filterCategory,
+        setFilterCategory,
+        filterQuery,
+        setFilterQuery,
         filteredBooks,
         hideBook,
         selectedCard,

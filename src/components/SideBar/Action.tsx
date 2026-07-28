@@ -1,27 +1,27 @@
-import { useContext } from 'react';
 import ActionDropDown from './ActionDropDown';
 import ActionSearch from './ActionSearch';
 import ActionButton from './ActionButton';
 import { Button } from 'flowbite-react';
-import { BookContext } from '../../context/BookContext';
 
 interface ActionProps {
   title: string;
   buttonLbl: string;
+  category: string;
+  setCategory: (category: string) => void;
+  query: string;
+  setQuery: (query: string) => void;
   onButtonClick?: (category: string, query: string) => void;
   onInputChange?: (category: string, query: string) => void;
 }
 
-function Action({ title, buttonLbl, onButtonClick }: ActionProps) {
-  const { category, setCategory, query, setQuery } = useContext(BookContext)!;
-
+function Action({ title, buttonLbl, category, setCategory, query, setQuery, onButtonClick }: ActionProps) {
   const handleCategoryChange = (newCategory: string) => {
     setCategory(newCategory);
     setQuery('');
   };
 
   const handleQueryChange = (newQuery: string) => {
-    setQuery(newQuery);
+    setQuery(newQuery.trim());
   };
 
   const handleClickOnButton = () => {

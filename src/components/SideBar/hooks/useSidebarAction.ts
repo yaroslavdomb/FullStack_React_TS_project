@@ -3,9 +3,11 @@ import { BookContext } from '../../../context/BookContext';
 import { ApiService } from '../../../services/api-service';
 import { type AxiosResponse } from 'axios';
 import { type Book } from '../../../models/Book';
+import { filterBooks } from '../../../context/filterBooks';
 
 export function useSidebarAction() {
-  const { books, setBooks, setCategory, setQuery } = useContext(BookContext)!;
+  const { books, setBooks, setSearchCategory, setSearchQuery, setFilterCategory, setFilterQuery } =
+    useContext(BookContext)!;
 
   function processError(resp: AxiosResponse<Array<Book>>) {
     console.error('Some error occur:' + resp.status);
@@ -20,10 +22,11 @@ export function useSidebarAction() {
   function processResponse(resp: AxiosResponse<Array<Book>>, category: string, query: string) {
     console.log('resp.status: ' + resp.status);
     if (resp.status.toString().startsWith('2')) {
+      console.log(`Update collection from server by category=${category} and query = ${query}`);
       console.table(resp.data);
-      setBooks(resp.data);
-      setCategory(category);
-      setQuery(query);
+      setBooks(filterBooks(resp.data, category, query));
+      setSearchCategory(category);
+      setSearchQuery(query);
     } else {
       processError(resp);
     }
@@ -32,6 +35,7 @@ export function useSidebarAction() {
   function processSingleResponse(resp: AxiosResponse<Book>) {
     console.log('resp.status: ' + resp.status);
     if (resp.status.toString().startsWith('2')) {
+      console.log(`Update collection from server by ID=${resp.data.id}`);
       console.table(resp.data);
       setBooks([resp.data]);
     } else {
@@ -65,8 +69,8 @@ export function useSidebarAction() {
     if (books.length === 0) return;
 
     console.log(`Filter data on current page for category = ${category} and query = ${query}`);
-    setCategory(category);
-    setQuery(query);
+    setFilterCategory(category);
+    setFilterQuery(query);
   };
 
   const handleRestoreCollection = async () => {
