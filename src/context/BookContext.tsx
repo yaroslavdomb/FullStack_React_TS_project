@@ -11,6 +11,8 @@ interface BookContextType {
   setCategory: (category: string) => void;
   filteredBooks: Book[];
   hideBook: (id: string) => void;
+  selectedCard: Book | null;
+  setSelectedCard: (book: Book | null) => void;
 }
 
 export const BookContext = createContext<BookContextType | null>(null);
@@ -20,6 +22,7 @@ export function BookProvider({ children }: { children: ReactNode }) {
   const [hiddenBookIds, setHiddenBookIds] = useState<Array<string>>([]);
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('');
+  const [selectedCard, setSelectedCard] = useState<Book | null>(null);
 
   const hideBook = (id: string) => {
     setHiddenBookIds((alreadyHiddens) => [...alreadyHiddens, id]);
@@ -50,6 +53,8 @@ export function BookProvider({ children }: { children: ReactNode }) {
         setCategory,
         filteredBooks,
         hideBook,
+        selectedCard,
+        setSelectedCard,
       }}
     >
       {children}

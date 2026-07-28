@@ -15,7 +15,7 @@ import { BookContext } from '../../context/BookContext';
 import { ApiService } from '../../services/api-service';
 
 function BookCard({ currentBook }: { currentBook: Book }) {
-  const { books, setBooks, hideBook } = useContext(BookContext)!;
+  const { books, setBooks, hideBook, setSelectedCard } = useContext(BookContext)!;
   const [editMode, setEditMode] = useState<EditMode>(null);
 
   const handleSaveOnServer = async (updatedBook: Book) => {
@@ -90,6 +90,12 @@ function BookCard({ currentBook }: { currentBook: Book }) {
       min-[700px]:w-72 min-[700px]:h-72
       min-[800px]:w-96 min-[800px]:h-96 
       border-4 border-cyan-500 rounded-3xl p-5 gap-2"
+      tabIndex={0}
+      onClick={() => setSelectedCard(currentBook)}
+      onFocus={() => setSelectedCard(currentBook)}
+      onMouseEnter={() => setSelectedCard(currentBook)}
+      onMouseLeave={() => setSelectedCard(null)}
+      onBlur={() => setSelectedCard(null)}
     >
       <img
         className="w-60 h-60 md:w-80 md:h-80 border-2 border-emerald-500 rounded-3xl p-5"

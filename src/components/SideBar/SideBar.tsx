@@ -1,16 +1,19 @@
 import { Button } from 'flowbite-react';
 import { FaBookMedical } from 'react-icons/fa6';
 import { BiFirstAid } from 'react-icons/bi';
-import { BsDatabaseAdd } from 'react-icons/bs';
+//import { BsDatabaseAdd } from 'react-icons/bs';
 import Action from './Action';
 import { useSidebarAction } from './hooks/useSidebarAction';
 import { SIDEBAR_BTN_STYLE } from '../../constants/styles';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import AddBookModal from './AddBookModal';
+import { BookContext } from '../../context/BookContext';
+import SelectedBook from './SelectedBook';
 
 function Sidebar() {
   const { handleServerSearch, handlePageFilter, handleRestoreCollection } = useSidebarAction();
   const [openAddBookModal, setOpenAddBookModal] = useState<boolean>(false);
+  const { selectedCard } = useContext(BookContext)!;
 
   const handleOpenModal = () => setOpenAddBookModal(true);
   const handleCloseModal = () => setOpenAddBookModal(false);
@@ -28,11 +31,11 @@ function Sidebar() {
         Add a new book
       </Button>
       {openAddBookModal && <AddBookModal onClose={handleCloseModal} />}
-
-      <Button onClick={() => {}} className={`${SIDEBAR_BTN_STYLE}`}>
+      {/* <Button onClick={() => {}} className={`${SIDEBAR_BTN_STYLE}`}>
         <BsDatabaseAdd size={56} />
         Upload your collection
-      </Button>
+      </Button> */}
+      {selectedCard && <SelectedBook />}
     </aside>
   );
 }
