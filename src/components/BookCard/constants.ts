@@ -23,4 +23,11 @@ export const STATIC_MODAL_CONFIG: Record<Exclude<Exclude<EditMode, null>, 'Id'>,
     changedValue: 'book description',
     isMultiline: true,
   },
+  Cover: {
+    discardChangeLbl: 'Discard changes',
+    acceptChangeLbl: 'Accept changes',
+    modalTitle: 'Change book cover',
+    placeholder: 'Enter new book cover URL',
+    changedValue: 'book cover',
+  },
 };

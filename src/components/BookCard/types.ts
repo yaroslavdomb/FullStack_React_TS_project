@@ -7,7 +7,7 @@ export interface ModalConfig {
   isMultiline?: boolean | undefined;
 }
 
-export type EditMode = 'Author' | 'Title' | 'Description' | null;
+export type EditMode = 'Author' | 'Title' | 'Description' | 'Cover' | null;
 
 export const categoryMapper: Record<string, string> = {
   Author: 'author',

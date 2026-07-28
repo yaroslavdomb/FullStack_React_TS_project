@@ -3,7 +3,7 @@ import { Tooltip } from 'flowbite-react';
 
 import { BsSuitHeart, BsSuitHeartFill } from 'react-icons/bs';
 import { RiDeleteBinLine } from 'react-icons/ri';
-import { GiFeather } from 'react-icons/gi';
+import { GiFeather, GiBookCover } from 'react-icons/gi';
 import { LuBaby, LuBookA } from 'react-icons/lu';
 import { BiHide } from 'react-icons/bi';
 
@@ -73,6 +73,10 @@ function BookCard({ currentBook }: { currentBook: Book }) {
         currentVal: currentBook.description,
         onSave: (newValue: string) => onBookChange({ ...currentBook, description: newValue }),
       },
+      Cover: {
+        currentVal: currentBook.coverUrl,
+        onSave: (newValue: string) => onBookChange({ ...currentBook, coverUrl: newValue }),
+      },
     };
 
     return {
@@ -86,21 +90,17 @@ function BookCard({ currentBook }: { currentBook: Book }) {
   return (
     <div
       className="flex flex-col justify-center items-center w-72 h-72
-      min-[400px]:w-96 min-[400px]:h-96 
-      min-[700px]:w-72 min-[700px]:h-72
-      min-[800px]:w-96 min-[800px]:h-96 
+      min-[400px]:w-96 min-[400px]:h-128
+      min-[700px]:w-72 min-[700px]:h-128
+      min-[800px]:w-96 min-[800px]:h-128 
       border-4 border-cyan-500 rounded-3xl p-5 gap-2"
       tabIndex={0}
       onClick={() => setSelectedCard(currentBook)}
-      onFocus={() => setSelectedCard(currentBook)}
-      onMouseEnter={() => setSelectedCard(currentBook)}
-      onMouseLeave={() => setSelectedCard(null)}
-      onBlur={() => setSelectedCard(null)}
     >
       <img
-        className="w-60 h-60 md:w-80 md:h-80 border-2 border-emerald-500 rounded-3xl p-5"
+        className="w-60 h-96 md:w-80 md:h-108 border-2 border-emerald-500 rounded-3xl p-5"
         alt="No book cover found"
-        src="<URL of book cover>"
+        src={currentBook.coverUrl}
       />
       <div className="flex flex-row justify-center items-center border-2 border-fuchsia-500 rounded-3xl p-3 gap-2 hover:gap-8">
         <Tooltip content={currentBook.isFavorite ? 'Dislike this book' : 'Like this book'} className="-translate-y-2">
@@ -120,6 +120,10 @@ function BookCard({ currentBook }: { currentBook: Book }) {
 
         <Tooltip content={`Book title: ${currentBook.title}`} className="-translate-y-2">
           <LuBookA className="hover:scale-200 cursor-pointer" onClick={() => setEditMode('Title')} />
+        </Tooltip>
+
+        <Tooltip content="Change the book cover" className="-translate-y-2">
+          <GiBookCover className="hover:scale-200 cursor-pointer" onClick={() => setEditMode('Cover')} />
         </Tooltip>
 
         <Tooltip
