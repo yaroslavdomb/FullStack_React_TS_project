@@ -21,8 +21,9 @@ mockapi
 
 React components used:
   useState  = on ... 
-  useEffect = on page loading
+  useEffect = on page loading / to set focus on proper input  modal field
   useId     = on SideBar Actions to prevenrt id duplication for search/filter
+  useMemo   = for Provider functionality to automate tracking of search and category 
 
 Flowbite-React elements used:
   Button
