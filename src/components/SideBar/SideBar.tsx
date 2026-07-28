@@ -5,9 +5,15 @@ import { BsDatabaseAdd } from 'react-icons/bs';
 import Action from './Action';
 import { useSidebarAction } from './hooks/useSidebarAction';
 import { SIDEBAR_BTN_STYLE } from '../../constants/styles';
+import { useState } from 'react';
+import AddBookModal from './AddBookModal';
 
 function Sidebar() {
   const { handleServerSearch, handlePageFilter, handleRestoreCollection } = useSidebarAction();
+  const [openAddBookModal, setOpenAddBookModal] = useState<boolean>(false);
+
+  const handleOpenModal = () => setOpenAddBookModal(true);
+  const handleCloseModal = () => setOpenAddBookModal(false);
 
   return (
     <aside className="flex flex-col gap-4 border-4 border-amber-500 rounded-3xl pt-4 pb-4 pl-3 pr-3 min-w-76">
@@ -17,10 +23,12 @@ function Sidebar() {
         <BiFirstAid size={56} />
         Restore origin collection
       </Button>
-      <Button onClick={() => {}} className={`${SIDEBAR_BTN_STYLE}`}>
+      <Button onClick={handleOpenModal} className={`${SIDEBAR_BTN_STYLE}`}>
         <FaBookMedical size={44} />
         Add a new book
       </Button>
+      {openAddBookModal && <AddBookModal onClose={handleCloseModal} />}
+
       <Button onClick={() => {}} className={`${SIDEBAR_BTN_STYLE}`}>
         <BsDatabaseAdd size={56} />
         Upload your collection

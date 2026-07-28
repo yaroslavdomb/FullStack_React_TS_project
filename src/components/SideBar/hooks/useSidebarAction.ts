@@ -72,8 +72,11 @@ export function useSidebarAction() {
   const handleRestoreCollection = async () => {
     const resp = await ApiService.getAllBooks();
     if (resp) {
-      if (resp.status.toString().startsWith('2')) setBooks(resp.data);
-      else console.error('handleRestoreCollection - Error ' + resp.status);
+      if (resp.status.toString().startsWith('2')) {
+        console.log('Retrieving collection from server!');
+        console.table(resp.data);
+        setBooks(resp.data);
+      } else console.error('handleRestoreCollection - Error ' + resp.status);
     } else {
       console.error('handleRestoreCollection - No response from BE! Please check network settings');
     }
