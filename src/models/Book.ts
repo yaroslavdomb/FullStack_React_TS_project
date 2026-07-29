@@ -3,6 +3,6 @@ export interface Book {
   title: string;
   author: string;
   description: string;
-  coverUrl: string;
+  coverImage: string;
   isFavorite: boolean;
 }

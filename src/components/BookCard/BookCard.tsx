@@ -74,8 +74,8 @@ function BookCard({ currentBook }: { currentBook: Book }) {
         onSave: (newValue: string) => onBookChange({ ...currentBook, description: newValue }),
       },
       Cover: {
-        currentVal: currentBook.coverUrl,
-        onSave: (newValue: string) => onBookChange({ ...currentBook, coverUrl: newValue }),
+        currentVal: currentBook.coverImage,
+        onSave: (newValue: string) => onBookChange({ ...currentBook, coverImage: newValue }),
       },
     };
 
@@ -89,19 +89,19 @@ function BookCard({ currentBook }: { currentBook: Book }) {
 
   return (
     <div
-      className="flex flex-col justify-center items-center w-72 h-72
-      min-[400px]:w-96 min-[400px]:h-150
-      min-[720px]:w-72 min-[720px]:h-150
-      min-[800px]:w-96 min-[800px]:h-150 
+      className="flex flex-col justify-center items-center w-72 h-fit
+      min-[400px]:w-96 
+      min-[720px]:w-72 
+      min-[800px]:w-96
       border-4 border-cyan-500 rounded-3xl p-5 gap-2"
       tabIndex={0}
       onClick={() => setSelectedCard(currentBook)}
     >
-      {currentBook.coverUrl ? (
+      {currentBook.coverImage ? (
         <img
           className=" border-2 border-emerald-500 rounded-3xl p-5"
           alt={currentBook.title}
-          src={currentBook.coverUrl}
+          src={currentBook.coverImage}
         />
       ) : (
         <div className="w-60 h-90 md:w-80 md:h-108 border-2 border-emerald-500 rounded-3xl p-5 cover-placeholder">

@@ -28,7 +28,7 @@ function Sidebar() {
   const handleCloseModal = () => setOpenAddBookModal(false);
 
   return (
-    <aside className="flex flex-col gap-4 border-4 border-amber-500 rounded-3xl pt-4 pb-4 pl-3 pr-3 min-w-76 min-[720px]:sticky min-[720px]:top-4 min-[720px]:self-start h-fit">
+    <aside className="flex flex-col gap-4 border-4 border-amber-500 rounded-3xl pt-4 pb-4 pl-3 pr-3 min-w-76 max-w-96 min-[720px]:sticky min-[720px]:top-4 min-[720px]:self-start h-fit">
       <Action
         title="Search"
         buttonLbl="Search"

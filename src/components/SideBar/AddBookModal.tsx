@@ -33,7 +33,7 @@ function AddBookModal({ onClose }: AddBookModalProps) {
       title: tempTitle.trim(),
       author: tempAuthorName.trim(),
       description: tempDescription.trim(),
-      coverUrl: tempCoverAddress.trim(),
+      coverImage: tempCoverAddress.trim(),
       isFavorite: false,
       id: generateID(),
     };
@@ -58,9 +58,10 @@ function AddBookModal({ onClose }: AddBookModalProps) {
         <ModalHeader> Add new book </ModalHeader>
         <ModalBody className="flex flex-col gap-4">
           <div>
-            <Label>
+            <Label htmlFor="book-title-id">
               <span className="mb-2 block">Book title:</span>
               <TextInput
+                id="book-title-id"
                 required
                 value={tempTitle}
                 placeholder="Title"
@@ -69,9 +70,10 @@ function AddBookModal({ onClose }: AddBookModalProps) {
             </Label>
           </div>
           <div>
-            <Label>
+            <Label htmlFor="author-name-id">
               <span className="mb-2 block">Author name:</span>
               <TextInput
+                id="author-name-id"
                 required
                 value={tempAuthorName}
                 placeholder="Name"
@@ -80,9 +82,10 @@ function AddBookModal({ onClose }: AddBookModalProps) {
             </Label>
           </div>
           <div>
-            <Label>
+            <Label htmlFor="book-description-id">
               <span className="mb-2 block">Book Description:</span>
               <Textarea
+                id="book-description-id"
                 required
                 value={tempDescription}
                 placeholder="Description"
@@ -92,9 +95,10 @@ function AddBookModal({ onClose }: AddBookModalProps) {
             </Label>
           </div>
           <div>
-            <Label>
+            <Label htmlFor="cover-id">
               <span className="mb-2 block">Cover Url(optional):</span>
               <TextInput
+                id="cover-id"
                 type="url"
                 value={tempCoverAddress}
                 placeholder="Cover Url"

@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, Label, Modal, ModalBody, ModalHeader, TextInput, Textarea } from 'flowbite-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useId } from 'react';
 
 interface EditModalProps {
   onClose: () => void;
@@ -37,6 +37,9 @@ function EditModal({
     return () => clearTimeout(timer);
   }, []);
 
+  const currentValId = useId();
+  const newValId = useId();
+
   function onCloseModal() {
     setTempValue('');
     onClose();
@@ -53,17 +56,17 @@ function EditModal({
         <ModalHeader> {modalTitle} </ModalHeader>
         <ModalBody>
           <div>
-            <Label>
+            <Label htmlFor={currentValId}>
               <span className="mb-2 block">Current {changedValue}:</span>
               {isMultiline ? (
-                <Textarea readOnly value={currentVal} rows={6} />
+                <Textarea id={currentValId} readOnly value={currentVal} rows={6} />
               ) : (
-                <TextInput readOnly value={currentVal} />
+                <TextInput id={currentValId} readOnly value={currentVal} />
               )}
             </Label>
           </div>
           <div>
-            <Label>
+            <Label htmlFor={newValId}>
               <span className="mb-2 block">New {changedValue}:</span>
               {isMultiline ? (
                 <Textarea
@@ -72,14 +75,15 @@ function EditModal({
                   placeholder={placeholder}
                   onChange={(e) => setTempValue(e.target.value)}
                   rows={6}
+                  id={newValId}
                 />
               ) : (
                 <TextInput
-                  id="modal-new-value-field"
                   ref={inputFieldRef as React.RefObject<HTMLInputElement>}
                   value={tempValue}
                   placeholder={placeholder}
                   onChange={(e) => setTempValue(e.target.value)}
+                  id={newValId}
                 />
               )}
             </Label>
