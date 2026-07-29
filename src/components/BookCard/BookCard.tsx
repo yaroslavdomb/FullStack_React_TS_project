@@ -91,7 +91,7 @@ function BookCard({ currentBook }: { currentBook: Book }) {
     <div
       className="flex flex-col justify-center items-center w-72 h-72
       min-[400px]:w-96 min-[400px]:h-150
-      min-[700px]:w-72 min-[700px]:h-150
+      min-[720px]:w-72 min-[720px]:h-150
       min-[800px]:w-96 min-[800px]:h-150 
       border-4 border-cyan-500 rounded-3xl p-5 gap-2"
       tabIndex={0}

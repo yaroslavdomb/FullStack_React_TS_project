@@ -1,7 +1,6 @@
 import { Button } from 'flowbite-react';
 import { FaBookMedical } from 'react-icons/fa6';
 import { BiFirstAid } from 'react-icons/bi';
-//import { BsDatabaseAdd } from 'react-icons/bs';
 import Action from './Action';
 import { useSidebarAction } from './hooks/useSidebarAction';
 import { SIDEBAR_BTN_STYLE } from '../../constants/styles';
@@ -29,7 +28,7 @@ function Sidebar() {
   const handleCloseModal = () => setOpenAddBookModal(false);
 
   return (
-    <aside className="flex flex-col gap-4 border-4 border-amber-500 rounded-3xl pt-4 pb-4 pl-3 pr-3 min-w-76">
+    <aside className="flex flex-col gap-4 border-4 border-amber-500 rounded-3xl pt-4 pb-4 pl-3 pr-3 min-w-76 min-[720px]:sticky min-[720px]:top-4 min-[720px]:self-start h-fit">
       <Action
         title="Search"
         buttonLbl="Search"
@@ -57,10 +56,6 @@ function Sidebar() {
         Add a new book
       </Button>
       {openAddBookModal && <AddBookModal onClose={handleCloseModal} />}
-      {/* <Button onClick={() => {}} className={`${SIDEBAR_BTN_STYLE}`}>
-        <BsDatabaseAdd size={56} />
-        Upload your collection
-      </Button> */}
       {selectedCard && <SelectedBook />}
     </aside>
   );
