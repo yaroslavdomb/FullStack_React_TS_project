@@ -21,7 +21,7 @@ function ActionDropDown({ title, value, onChange }: ActionDropDownProps) {
       <span className="mb-2 block font-bold text-2xl">{title} by:</span>
       <Dropdown
         renderTrigger={() => (
-          <Button className="bg-blue-500 hover:bg-blue-700 text-2xl">
+          <Button className="bg-blue-500 hover:bg-blue-700 text-2xl w-full">
             <span className="flex items-center">
               {value || 'Categories'}
               (<TbArrowBigDownLines />)
