@@ -6,7 +6,7 @@ import { type Book } from '../../../models/Book';
 import { filterBooks } from '../../../context/filterBooks';
 
 export function useSidebarAction() {
-  const { books, setBooks, setSearchCategory, setSearchQuery, setFilterCategory, setFilterQuery } =
+  const { books, setBooks, setSearchCategory, setSearchQuery, setFilterCategory, setFilterQuery, setHiddenBookIds } =
     useContext(BookContext)!;
 
   function processError(resp: AxiosResponse<Array<Book>>) {
@@ -74,11 +74,12 @@ export function useSidebarAction() {
   };
 
   const handleRestoreCollection = async () => {
+    console.log('Retrieving collection from server!');
     const resp = await ApiService.getAllBooks();
     if (resp) {
       if (resp.status.toString().startsWith('2')) {
-        console.log('Retrieving collection from server!');
         console.table(resp.data);
+        setHiddenBookIds([]);
         setBooks(resp.data);
       } else console.error('handleRestoreCollection - Error ' + resp.status);
     } else {

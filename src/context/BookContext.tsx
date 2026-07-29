@@ -18,6 +18,7 @@ interface BookContextType {
 
   filteredBooks: Book[];
   hideBook: (id: string) => void;
+  setHiddenBookIds: (ids: Array<string>) => void;
   selectedCard: Book | null;
   setSelectedCard: (book: Book | null) => void;
 }
@@ -59,6 +60,7 @@ export function BookProvider({ children }: { children: ReactNode }) {
         hideBook,
         selectedCard,
         setSelectedCard,
+        setHiddenBookIds,
       }}
     >
       {children}
