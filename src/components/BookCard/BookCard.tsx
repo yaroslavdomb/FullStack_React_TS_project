@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Tooltip } from 'flowbite-react';
+import { Tooltip, Label } from 'flowbite-react';
 
 import { BsSuitHeart, BsSuitHeartFill } from 'react-icons/bs';
 import { RiDeleteBinLine } from 'react-icons/ri';
@@ -108,6 +108,8 @@ function BookCard({ currentBook }: { currentBook: Book }) {
           No book cover found
         </div>
       )}
+
+      <Label className="font-bold">{`Author: ${currentBook.author}`}</Label>
 
       <div className="flex flex-row justify-center items-center border-2 border-fuchsia-500 rounded-3xl p-3 gap-2 hover:gap-8">
         <Tooltip content={currentBook.isFavorite ? 'Dislike this book' : 'Like this book'} className="-translate-y-2">

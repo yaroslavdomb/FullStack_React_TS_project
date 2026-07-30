@@ -6,11 +6,11 @@ import MainPage from './components/MainPage/MainPage.tsx';
 import { BookProvider } from './context/BookContext.tsx';
 
 createRoot(document.getElementById('root')!).render(
-  // <StrictMode>
-  <BookProvider>
-    <BaseLayout>
-      <MainPage />
-    </BaseLayout>
-  </BookProvider>
-  // </StrictMode>
+  <StrictMode>
+    <BookProvider>
+      <BaseLayout>
+        <MainPage />
+      </BaseLayout>
+    </BookProvider>
+  </StrictMode>
 );

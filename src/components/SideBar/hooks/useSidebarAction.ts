@@ -6,8 +6,17 @@ import { type Book } from '../../../models/Book';
 import { filterBooks } from '../../../context/filterBooks';
 
 export function useSidebarAction() {
-  const { books, setBooks, setSearchCategory, setSearchQuery, setFilterCategory, setFilterQuery, setHiddenBookIds } =
-    useContext(BookContext)!;
+  const {
+    books,
+    setBooks,
+    hiddenBookIds,
+    setAllAuthors,
+    setSearchCategory,
+    setSearchQuery,
+    setFilterCategory,
+    setFilterQuery,
+    setHiddenBookIds,
+  } = useContext(BookContext)!;
 
   function processError(resp: AxiosResponse<Array<Book>>) {
     console.error('Some error occur:' + resp.status);
@@ -87,9 +96,17 @@ export function useSidebarAction() {
     }
   };
 
+  const collectAllAuthors = () => {
+    console.log('Collect authors presented on screen!');
+    const visibleBooks = books.filter((book) => !hiddenBookIds.includes(book.id));
+    const authors = new Set(visibleBooks.map((book) => book.author));
+    setAllAuthors(authors);
+  };
+
   return {
     handleServerSearch,
     handlePageFilter,
     handleRestoreCollection,
+    collectAllAuthors,
   };
 }

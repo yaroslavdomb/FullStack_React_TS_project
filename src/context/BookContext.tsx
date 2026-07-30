@@ -4,23 +4,27 @@ import { filterBooks } from './filterBooks';
 
 interface BookContextType {
   books: Book[];
-  setBooks: (books: Book[]) => void;
+  setBooks: React.Dispatch<React.SetStateAction<Book[]>>;
 
   searchQuery: string;
-  setSearchQuery: (query: string) => void;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   searchCategory: string;
-  setSearchCategory: (category: string) => void;
+  setSearchCategory: React.Dispatch<React.SetStateAction<string>>;
 
   filterQuery: string;
-  setFilterQuery: (query: string) => void;
+  setFilterQuery: React.Dispatch<React.SetStateAction<string>>;
   filterCategory: string;
-  setFilterCategory: (category: string) => void;
+  setFilterCategory: React.Dispatch<React.SetStateAction<string>>;
 
   filteredBooks: Book[];
   hideBook: (id: string) => void;
-  setHiddenBookIds: (ids: Array<string>) => void;
+  hiddenBookIds: Array<string>;
+  setHiddenBookIds: React.Dispatch<React.SetStateAction<string[]>>;
   selectedCard: Book | null;
-  setSelectedCard: (book: Book | null) => void;
+  setSelectedCard: React.Dispatch<React.SetStateAction<Book | null>>;
+
+  allAuthors: Set<string>;
+  setAllAuthors: React.Dispatch<React.SetStateAction<Set<string>>>;
 }
 
 export const BookContext = createContext<BookContextType | null>(null);
@@ -33,6 +37,7 @@ export function BookProvider({ children }: { children: ReactNode }) {
   const [filterCategory, setFilterCategory] = useState('');
   const [filterQuery, setFilterQuery] = useState('');
   const [selectedCard, setSelectedCard] = useState<Book | null>(null);
+  const [allAuthors, setAllAuthors] = useState<Set<string>>(new Set());
 
   const hideBook = (id: string) => {
     setHiddenBookIds((alreadyHiddens) => [...alreadyHiddens, id]);
@@ -58,9 +63,12 @@ export function BookProvider({ children }: { children: ReactNode }) {
         setFilterQuery,
         filteredBooks,
         hideBook,
+        hiddenBookIds,
         selectedCard,
         setSelectedCard,
         setHiddenBookIds,
+        allAuthors,
+        setAllAuthors,
       }}
     >
       {children}
